@@ -3,14 +3,17 @@ package com.filipkowicz.examples.ui.main
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.filipkowicz.examples.BR
 import com.filipkowicz.examples.R
+import com.filipkowicz.examples.databinding.HeaderLayoutBinding
+import com.filipkowicz.examples.databinding.ItemLayoutBinding
 
 class Adapter
-    : ListAdapter<ListItem, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<ListItem>() {
+    : ListAdapter<ListItem, DataBindingViewHolder>(object : DiffUtil.ItemCallback<ListItem>() {
     override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
         return oldItem.itemType == newItem.itemType
     }
@@ -21,29 +24,30 @@ class Adapter
     }
 }) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBindingViewHolder =
         when (viewType) {
-            R.layout.item_layout -> LayoutInflater.from(parent.context).inflate(
-                viewType,
-                parent,
-                false
-            )
-            R.layout.header_layout -> LayoutInflater.from(parent.context).inflate(
-                viewType,
-                parent,
-                false
-            )
+            R.layout.item_layout -> HeaderLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            R.layout.header_layout -> ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             else -> throw IllegalArgumentException("no supported item id")
         }.let {
-            object : RecyclerView.ViewHolder(it) {}
+             DataBindingViewHolder(it)
         }
 
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder.itemView as? TextView)?.text = (getItem(position) as? MainViewModel.Data)?.data
+    override fun onBindViewHolder(holder: DataBindingViewHolder, position: Int) {
+        holder.bind(getItem(position) as MainViewModel.Data)
     }
 
     override fun getItemViewType(position: Int): Int {
         return getItem(position).itemType
     }
+}
+
+class DataBindingViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(item: MainViewModel.Data) {
+        binding.setVariable(BR.data, item.data)
+        binding.executePendingBindings()
+    }
+
 }

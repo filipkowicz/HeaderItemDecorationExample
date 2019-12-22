@@ -9,6 +9,7 @@ class MainViewModel : ViewModel() {
 
     val items: LiveData<List<ListItem>> = MutableLiveData(
         listOf(
+            Data(R.layout.header_layout, "HEADER 0"),
             Data(R.layout.item_layout, "item 1"),
             Data(R.layout.item_layout, "item 2"),
             Data(R.layout.header_layout, "HEADER 1"),

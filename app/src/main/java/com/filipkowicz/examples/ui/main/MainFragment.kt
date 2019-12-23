@@ -1,6 +1,5 @@
 package com.filipkowicz.examples.ui.main
 
-import HeaderItemDecoration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.filipkowicz.examples.R
+import com.filipkowicz.headeritemdecorator.HeaderItemDecoration
 
 class MainFragment : Fragment() {
 

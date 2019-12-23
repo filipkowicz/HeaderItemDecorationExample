@@ -10,3 +10,25 @@ integrate HeaderItemDecoration into your projects.
 All help welcomed 🙏 if you have any idea please clone and make PR 😊 
 
 have fun and happy coding 😃 
+
+
+## Import
+
+```
+compile 'com.filipkowicz.tools:header-item-decoration:0.8'
+```
+
+## How to use
+
+```
+import com.filipkowicz.headeritemdecorator.HeaderItemDecoration
+
+...
+
+recyclerView.addItemDecoration(HeaderItemDecoration(this,
+                    shouldFadeOutHeader = true
+                ) {
+                // example check for header item
+                    this@MainFragment.adapter.getItemViewType(it) == R.layout.header_layout
+                })
+```

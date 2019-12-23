@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/textView"
-    android:layout_width="match_parent"
-    android:layout_height="102dp"
-    android:gravity="center"
-    android:background="@color/colorAccent"
-    style="@style/TextAppearance.AppCompat.Headline"
-    android:text="Header" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="String" />
+
+    </data>
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="@{data}"
+        tools:text="header" />
+</layout>

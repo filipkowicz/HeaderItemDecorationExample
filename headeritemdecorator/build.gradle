@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        minSdkVersion 22
+        targetSdkVersion 29
+        versionCode 2
+        versionName computeVersionName()
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+}
+
+def computeVersionName() {
+    return "0.8"
+}
+
+
+//to release use ./gradlew clean build headeritemdecorator:bintrayUpload -PdryRun=false
+publish {
+
+    Properties properties = new Properties()
+    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
+    properties.load( inputStream )
+    bintrayUser = properties.getProperty('bintrayUser')
+    bintrayKey = properties.getProperty('bintrayKey')
+
+    def groupProjectID = 'com.filipkowicz.tools'
+    def artifactProjectID = 'header-item-decoration'
+    def publishVersionID = computeVersionName()
+
+    userOrg = 'filipkowicz'
+    repoName = 'HeaderItemDecoration'
+    groupId = groupProjectID
+    artifactId = artifactProjectID
+    publishVersion = publishVersionID
+    desc = 'Simple decorator for recyclerView to add Sticky headers in Kotlin'
+    website = 'https://gist.github.com/filipkowicz/1a769001fae407b8813ab4387c42fcb'
+
+}

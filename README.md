@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/filipkowicz/HeaderItemDecoration/header-item-decoration/images/download.svg) ](https://bintray.com/filipkowicz/HeaderItemDecoration/header-item-decoration/_latestVersion)
+
 # HeaderItemDecorationExample
 Simple Example how to use HeaderItemDecoration from gist https://gist.github.com/filipkowicz/1a769001fae407b8813ab4387c42fcbd
 

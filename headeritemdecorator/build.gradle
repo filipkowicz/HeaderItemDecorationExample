@@ -11,7 +11,7 @@ android {
     defaultConfig {
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 2
+        versionCode 3
         versionName computeVersionName()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -39,8 +39,8 @@ dependencies {
 
 }
 
-def computeVersionName() {
-    return "0.8"
+static def computeVersionName() {
+    return "0.8.1"
 }
 
 
@@ -63,6 +63,6 @@ publish {
     artifactId = artifactProjectID
     publishVersion = publishVersionID
     desc = 'Simple decorator for recyclerView to add Sticky headers in Kotlin'
-    website = 'https://gist.github.com/filipkowicz/1a769001fae407b8813ab4387c42fcb'
+    website = 'https://gist.github.com/filipkowicz/1a769001fae407b8813ab4387c42fcbd'
 
 }

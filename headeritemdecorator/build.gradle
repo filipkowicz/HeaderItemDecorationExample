@@ -47,11 +47,18 @@ static def computeVersionName() {
 //to release use ./gradlew clean build headeritemdecorator:bintrayUpload -PdryRun=false
 publish {
 
-    Properties properties = new Properties()
-    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
-    properties.load( inputStream )
-    bintrayUser = properties.getProperty('bintrayUser')
-    bintrayKey = properties.getProperty('bintrayKey')
+    def localFile = project.rootProject.file('local.properties')
+    if ( localFile.isFile() ) {
+        Properties properties = new Properties()
+        InputStream inputStream = localFile.newDataInputStream()
+        properties.load(inputStream)
+        bintrayUser = properties.getProperty('bintrayUser')
+        bintrayKey = properties.getProperty('bintrayKey')
+    } else {
+        //get for CI
+        bintrayUser = System.getenv('bintrayUser')
+        bintrayKey = System.getenv('bintrayKey')
+    }
 
     def groupProjectID = 'com.filipkowicz.tools'
     def artifactProjectID = 'header-item-decoration'

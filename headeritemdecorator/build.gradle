@@ -9,9 +9,9 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        minSdkVersion 22
+        minSdkVersion 16
         targetSdkVersion 29
-        versionCode 3
+        versionCode 4
         versionName computeVersionName()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -40,18 +40,25 @@ dependencies {
 }
 
 static def computeVersionName() {
-    return "0.8.1"
+    return "0.8.2"
 }
 
 
 //to release use ./gradlew clean build headeritemdecorator:bintrayUpload -PdryRun=false
 publish {
 
-    Properties properties = new Properties()
-    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
-    properties.load( inputStream )
-    bintrayUser = properties.getProperty('bintrayUser')
-    bintrayKey = properties.getProperty('bintrayKey')
+    def localFile = project.rootProject.file('local.properties')
+    if ( localFile.isFile() ) {
+        Properties properties = new Properties()
+        InputStream inputStream = localFile.newDataInputStream()
+        properties.load(inputStream)
+        bintrayUser = properties.getProperty('bintrayUser')
+        bintrayKey = properties.getProperty('bintrayKey')
+    } else {
+        //get for CI
+        bintrayUser = System.getenv('bintrayUser')
+        bintrayKey = System.getenv('bintrayKey')
+    }
 
     def groupProjectID = 'com.filipkowicz.tools'
     def artifactProjectID = 'header-item-decoration'
